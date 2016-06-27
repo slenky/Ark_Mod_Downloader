@@ -70,8 +70,8 @@ class ArkModDownloader():
         # Check provided directory
         if self.steamcmd:
             print("[+] Checking Provided Path For SteamCMD")
-            if os.path.isfile(os.path.join(self.steamcmd, "steamcmd.exe")):
-                self.steamcmd = os.path.join(self.steamcmd, "steamcmd.exe")
+            if os.path.isfile(os.path.join(self.steamcmd, "steamcmd.sh")):
+                self.steamcmd = os.path.join(self.steamcmd, "steamcmd.sh")
                 print("[+] SteamCMD Found At Provided Path")
                 return True
 
@@ -83,9 +83,9 @@ class ArkModDownloader():
             return True
 
         # Check working directory
-        if os.path.isfile(os.path.join(self.working_dir, "SteamCMD\steamcmd.sh")):
+        if os.path.isfile(os.path.join(self.working_dir, "SteamCMD/steamcmd.sh")):
             print("[+] Located SteamCMD")
-            self.steamcmd = os.path.join(self.working_dir, "SteamCMD\steamcmd.sh")
+            self.steamcmd = os.path.join(self.working_dir, "SteamCMD/steamcmd.sh")
             return True
 
         print("[+} SteamCMD Not Found In Common Locations. Attempting To Download")
