@@ -83,15 +83,15 @@ class ArkModDownloader():
             return True
 
         # Check working directory
-        if os.path.isfile(os.path.join(self.working_dir, "SteamCMD\steamcmd.exe")):
+        if os.path.isfile(os.path.join(self.working_dir, "SteamCMD\steamcmd.sh")):
             print("[+] Located SteamCMD")
-            self.steamcmd = os.path.join(self.working_dir, "SteamCMD\steamcmd.exe")
+            self.steamcmd = os.path.join(self.working_dir, "SteamCMD\steamcmd.sh")
             return True
 
         print("[+} SteamCMD Not Found In Common Locations. Attempting To Download")
 
         try:
-            with urllib.request.urlopen("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip") as response:
+            with urllib.request.urlopen("http://storage.srvgame.ru/games/steamcmd.zip") as response:
                 if not os.path.isdir(os.path.join(self.working_dir, "SteamCMD")):
                     os.mkdir(os.path.join(self.working_dir, "SteamCMD"))
 
@@ -112,7 +112,7 @@ class ArkModDownloader():
             print("[x] ERROR: " + e)
             return False
 
-        self.steamcmd = os.path.join(self.working_dir, r"SteamCMD\steamcmd.exe")
+        self.steamcmd = os.path.join(self.working_dir, r"SteamCMD\steamcmd.sh")
 
         return True
 
