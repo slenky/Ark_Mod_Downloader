@@ -28,7 +28,7 @@ class ArkModDownloader():
         self.installed_mods = []  # List to hold installed mods
         self.map_names = []  # Stores map names from mod.info
         self.meta_data = OrderedDict([])  # Stores key value from modmeta.info
-        self.temp_mod_path = os.path.join(os.path.dirname(self.steamcmd), r"steamapps\workshop\content\346110")
+        self.temp_mod_path = os.path.join(os.path.dirname(self.steamcmd), r"steamapps/workshop/content/346110")
 
         self.prep_steamcmd()
 
@@ -52,7 +52,7 @@ class ArkModDownloader():
     def working_dir_check(self):
         print("[!] No working directory provided.  Checking Current Directory")
         print("[!] " + os.getcwd())
-        if os.path.isdir(os.path.join(os.getcwd(), "ShooterGame\Content")):
+        if os.path.isdir(os.path.join(os.getcwd(), "ShooterGame/Content")):
             print("[+] Current Directory Has Ark Server.  Using The Current Directory")
             self.working_dir = os.getcwd()
         else:
@@ -70,8 +70,8 @@ class ArkModDownloader():
         # Check provided directory
         if self.steamcmd:
             print("[+] Checking Provided Path For SteamCMD")
-            if os.path.isfile(os.path.join(self.steamcmd, "steamcmd.sh")):
-                self.steamcmd = os.path.join(self.steamcmd, "steamcmd.sh")
+            if os.path.isfile(os.path.join(self.steamcmd, "/steamcmd.sh")):
+                self.steamcmd = os.path.join(self.steamcmd, "/steamcmd.sh")
                 print("[+] SteamCMD Found At Provided Path")
                 return True
 
@@ -154,9 +154,9 @@ class ArkModDownloader():
         Build a list of all installed mods by grabbing all directory names from the mod folder
         :return:
         """
-        if not os.path.isdir(os.path.join(self.working_dir, "ShooterGame\Content\Mods")):
+        if not os.path.isdir(os.path.join(self.working_dir, "ShooterGame/Content/Mods")):
             return
-        for curdir, dirs, files in os.walk(os.path.join(self.working_dir, "ShooterGame\Content\Mods")):
+        for curdir, dirs, files in os.walk(os.path.join(self.working_dir, "ShooterGame/Content/Mods")):
             for d in dirs:
                 self.installed_mods.append(d)
             break
@@ -220,7 +220,7 @@ class ArkModDownloader():
         :return:
         """
 
-        ark_mod_folder = os.path.join(self.working_dir, "ShooterGame\Content\Mods")
+        ark_mod_folder = os.path.join(self.working_dir, "ShooterGame/Content/Mods")
         output_dir = os.path.join(ark_mod_folder, str(modid))
         source_dir = os.path.join(self.temp_mod_path, modid, "WindowsNoEditor")
 
@@ -251,7 +251,7 @@ class ArkModDownloader():
             return False
 
         print("[+] Writing .mod File")
-        with open(os.path.join(self.temp_mod_path, modid, r"WindowsNoEditor\.mod"), "w+b") as f:
+        with open(os.path.join(self.temp_mod_path, modid, r"LinuxNoEditor/.mod"), "w+b") as f:
 
             modid = int(modid)
             f.write(struct.pack('ixxxx', modid))  # Needs 4 pad bits
@@ -321,7 +321,7 @@ class ArkModDownloader():
         print("[+] Collecting Mod Meta Data From modmeta.info")
         print("[+] Located The Following Meta Data:")
 
-        mod_meta = os.path.join(self.temp_mod_path, modid, r"WindowsNoEditor\modmeta.info")
+        mod_meta = os.path.join(self.temp_mod_path, modid, r"LinuxNoEditor/modmeta.info")
         if not os.path.isfile(mod_meta):
             print("[x] Failed To Locate modmeta.info. Cannot continue without it.  Aborting")
             return False
@@ -367,7 +367,7 @@ class ArkModDownloader():
 
         print("[+] Collecting Mod Details From mod.info")
 
-        mod_info = os.path.join(self.temp_mod_path, modid, r"WindowsNoEditor\mod.info")
+        mod_info = os.path.join(self.temp_mod_path, modid, r"LinuxNoEditor/mod.info")
 
         if not os.path.isfile(mod_info):
             print("[x] Failed to locate mod.info. Cannot Continue.  Aborting")
