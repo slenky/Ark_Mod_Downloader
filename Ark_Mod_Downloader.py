@@ -169,11 +169,11 @@ class ArkModDownloader():
         print("[+] Starting Download of Mod " + str(modid))
         args = []
         args.append(self.steamcmd)
-        args.append(""+login anonymous"")
-        args.append(""+workshop_download_item"")
-        args.append(""346110"")
+        args.append('"+login anonymous"')
+        args.append('"+workshop_download_item"')
+        args.append('"346110"')
         args.append(modid)
-        args.append(""+quit"")
+        args.append('"+quit"')
         subprocess.call(args, shell=True)
 
         return True if self.extract_mod(modid) else False
