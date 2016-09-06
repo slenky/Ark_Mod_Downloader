@@ -77,22 +77,22 @@ class ArkModDownloader():
 
         # Check TCAdmin Directory
         print("[+] SteamCMD Location Not Provided. Checking Common Locations")
-        if os.path.isfile(r"C:\Program Files\TCAdmin2\Monitor\Tools\SteamCmd\steamcmd.exe"):
+        if os.path.isfile(r"/home/tcagame/SteamCmd/steamcmd.sh"):
             print("[+] SteamCMD Located In TCAdmin Directory")
-            self.steamcmd = r"C:\Program Files\TCAdmin2\Monitor\Tools\SteamCmd\steamcmd.exe"
+            self.steamcmd = r"/home/tcagame/SteamCmd/steamcmd.sh"
             return True
 
         # Check working directory
-        if os.path.isfile(os.path.join(self.working_dir, "SteamCMD/steamcmd.sh")):
+        if os.path.isfile(os.path.join(self.working_dir, "SteamCmd/steamcmd.sh")):
             print("[+] Located SteamCMD")
-            self.steamcmd = os.path.join(self.working_dir, "SteamCMD/steamcmd.sh")
+            self.steamcmd = os.path.join(self.working_dir, "SteamCmd/steamcmd.sh")
             return True
 
         print("[+} SteamCMD Not Found In Common Locations. Attempting To Download")
 
         try:
             with urllib.request.urlopen("http://storage.srvgame.ru/games/steamcmd.zip") as response:
-                if not os.path.isdir(os.path.join(self.working_dir, "SteamCMD")):
+                if not os.path.isdir(os.path.join(self.working_dir, "SteamCmd")):
                     os.mkdir(os.path.join(self.working_dir, "SteamCMD"))
 
                 steam_cmd_zip = os.path.join(self.working_dir, "steamcmd.zip")
@@ -101,7 +101,7 @@ class ArkModDownloader():
 
                 zip_file = zipfile.ZipFile(steam_cmd_zip)
                 try:
-                    zip_file.extractall(os.path.join(self.working_dir, "SteamCMD"))
+                    zip_file.extractall(os.path.join(self.working_dir, "SteamCmd"))
                 except zipfile.BadZipfile as e:
                     print("[x] Failed To Extract steamcmd.zip. Aborting")
                     print("[x] Error: " + e)
@@ -112,7 +112,7 @@ class ArkModDownloader():
             print("[x] ERROR: " + e)
             return False
 
-        self.steamcmd = os.path.join(self.working_dir, r"SteamCMD/steamcmd.sh")
+        self.steamcmd = os.path.join(self.working_dir, r"SteamCmd/steamcmd.sh")
 
         return True
 
@@ -189,7 +189,7 @@ class ArkModDownloader():
         print("[+] Extracting .z Files.")
 
         try:
-            for curdir, subdirs, files in os.walk(os.path.join(self.temp_mod_path, modid, "WindowsNoEditor")):
+            for curdir, subdirs, files in os.walk(os.path.join(self.temp_mod_path, modid, "LinuxNoEditor")):
                 for file in files:
                     name, ext = os.path.splitext(file)
                     if ext == ".z":
@@ -222,7 +222,7 @@ class ArkModDownloader():
 
         ark_mod_folder = os.path.join(self.working_dir, "ShooterGame/Content/Mods")
         output_dir = os.path.join(ark_mod_folder, str(modid))
-        source_dir = os.path.join(self.temp_mod_path, modid, "WindowsNoEditor")
+        source_dir = os.path.join(self.temp_mod_path, modid, "LinuxNoEditor")
 
         # TODO Need to handle exceptions here
         if not os.path.isdir(ark_mod_folder):
