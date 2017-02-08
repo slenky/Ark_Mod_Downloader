@@ -29,6 +29,7 @@ class ArkModDownloader():
         self.map_names = []  # Stores map names from mod.info
         self.meta_data = OrderedDict([])  # Stores key value from modmeta.info
         self.temp_mod_path = os.path.join(os.path.dirname(self.steamcmd), r"steamapps/workshop/content/346110")
+        self.content_mods = os.path.join(os.path.dirname(self.working_dir), r"ShooterGame/Content/Mods")
 
         self.prep_steamcmd()
 
@@ -243,7 +244,7 @@ class ArkModDownloader():
             return False
 
         print("[+] Writing .mod File")
-        with open(os.path.join(self.temp_mod_path, modid, r"LinuxNoEditor/.mod"), "w+b") as f:
+        with open(os.path.join(self.temp_mod_path, modid, r"LinuxNoEditor/" + modid + ".mod"), "w+b") as f:
 
             modid = int(modid)
             f.write(struct.pack('ixxxx', modid))  # Needs 4 pad bits
@@ -275,7 +276,7 @@ class ArkModDownloader():
             for k, v in self.meta_data.items():
                 self.write_ue4_string(k, f)
                 self.write_ue4_string(v, f)
-
+            os.rename("ShooterGame/Content/Mods/" + str(modid) + "/" + str(modid) + ".mod", "ShooterGame/Content/Mods/" + str(modid) + ".mod")
         return True
 
     def read_ue4_string(self, file):
