@@ -3,6 +3,7 @@
 As many know you cannot simply download ARK mods via SteamCMD.  The individual files come archived as .z files which will not work with a server. 
 
 This tool works around this issue by downloading the mod and extracting the .z files. 
+Was ported for Linux. If you want to rather choose the Windows version, go to original maintainer!
 
 **Usage**
 
